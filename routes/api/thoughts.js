@@ -2,7 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const Thought = require('../models/Thought');
+const thoughtController = require('../../controllers').thoughtController;
+
 
 
 module.exports = router;
