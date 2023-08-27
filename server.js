@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 
 // Connection to MongoDB
-mongoose.connect('mongodb://localhost/social_network', {
+mongoose.connect('mongodb://127.0.0.1:27017/social_network', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
