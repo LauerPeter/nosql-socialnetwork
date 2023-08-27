@@ -7,10 +7,10 @@ const routes = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-//middleware
+// Middleware
 app.use(express.json());
 
-//connection to MongoDB
+// Connection to MongoDB
 mongoose.connect('mongodb://localhost/social_network', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,10 +18,20 @@ mongoose.connect('mongodb://localhost/social_network', {
   useFindAndModify: false,
 });
 
-//use api routes
+const db = mongoose.connection;
+
+db.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+db.once('open', () => {
+  console.log('Connected to MongoDB database.');
+});
+
+// Use API routes
 app.use('/api', routes);
 
-//start server
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

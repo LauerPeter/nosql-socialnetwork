@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 
+const db = require('../config/connection');
+
 const thoughtSchema = new mongoose.Schema({
   thoughtText: {
     type: String,

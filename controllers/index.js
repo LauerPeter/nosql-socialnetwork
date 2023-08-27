@@ -1,9 +1,8 @@
 
-
-const userController = require('./users');
+const usersController = require('./users'); 
 const thoughtController = require('./thoughts');
 
 module.exports = {
-  userController,
+  usersController,
   thoughtController,
 };

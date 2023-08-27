@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 
+const db = require('../config/connection');
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
