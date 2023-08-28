@@ -11,10 +11,10 @@ const thoughtSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  userId: {  // Change the field name to userId
-    type: mongoose.Schema.Types.ObjectId,  // Store the user's ObjectId
-    ref: 'User',  // Reference the User model
-    required: true,  // Make sure userId is required
+  userId: {  // Changed the field name to userId for better user experience --- was getting error with just user
+    type: mongoose.Schema.Types.ObjectId,  
+    ref: 'User',  
+    required: true,  
   },
 });
 

@@ -6,6 +6,8 @@ const User = require('../models/User');
 
 
 const thoughtController = {
+
+  //// POST REQUEST TO CREATE THOUGHT-----------------------------------
   createThought: async (req, res) => {
     try {
       const { thoughtText, userId } = req.body;
@@ -30,6 +32,43 @@ const thoughtController = {
       res.json(thought);
     } catch (err) {
       res.status(400).json(err);
+    }
+  },
+
+
+  ////GET REQUEST TO VIEW ALL THOUGHTS --------------------------------------
+  getAllThoughts: async (req, res) => {
+    try {
+      const thoughts = await Thought.find();
+      res.json(thoughts);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+
+/////GET REQUEST TO VIEW SINGLE THOUGHT BY ID ----------------------------
+getThoughtById: async (req, res) => {
+  try {
+    const thought = await Thought.findById(req.params.id);
+    if (!thought) {
+      return res.status(404).json({ message: 'Thought not found' });
+    }
+    res.json(thought);
+  } catch (err) {
+    console.error(err); 
+    res.status(500).json({ error: err.message }); 
+  }
+},
+
+
+/////GET REQUEST TO VIEW ALL THOUGHTS OF A USER BY ID ------------------------
+  getThoughtsByUser: async (req, res) => {
+    try {
+      const thoughts = await Thought.find({ userId: req.params.userId });
+      res.json(thoughts);
+    } catch (err) {
+      res.status(500).json(err);
     }
   },
 };
