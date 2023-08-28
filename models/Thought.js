@@ -1,8 +1,4 @@
-
-
 const mongoose = require('mongoose');
-
-const db = require('../config/connection');
 
 const thoughtSchema = new mongoose.Schema({
   thoughtText: {
@@ -15,13 +11,14 @@ const thoughtSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  username: {
-    type: String,
-    required: true,
+  userId: {  // Change the field name to userId
+    type: mongoose.Schema.Types.ObjectId,  // Store the user's ObjectId
+    ref: 'User',  // Reference the User model
+    required: true,  // Make sure userId is required
   },
 });
 
-thoughtSchema.virtual('reactionCount').get(function() {
+thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
