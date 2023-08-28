@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose');
 
 const db = require('../config/connection');
@@ -15,7 +13,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: ['Please enter a valid email'],
+    match: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
   },
   thoughts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thought' }],
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
