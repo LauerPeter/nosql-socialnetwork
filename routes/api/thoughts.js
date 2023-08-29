@@ -16,9 +16,8 @@ router.get('/user/:userId', thoughtController.getThoughtsByUser);
 //--Create a new thought
 router.post('/', thoughtController.createThought);
 
-
 // //--Update a thought by ID
-// router.put('/:id', thoughtController.updateThought);
+router.put('/:id', thoughtController.updateThoughtById);
 
 // //--Delete a thought by ID
 // router.delete('/:id', thoughtController.deleteThought);

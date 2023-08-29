@@ -7,7 +7,7 @@ const User = require('../models/User');
 
 const thoughtController = {
 
-  //// POST REQUEST TO CREATE THOUGHT-----------------------------------
+//// POST REQUEST TO CREATE THOUGHT-----------------------------------
   createThought: async (req, res) => {
     try {
       const { thoughtText, userId } = req.body;
@@ -71,6 +71,32 @@ getThoughtById: async (req, res) => {
       res.status(500).json(err);
     }
   },
+  
+/////PUT REQUEST FOR UPDATING A THOUGHT BY ITS ID--------------------
+updateThoughtById: async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { thoughtText } = req.body;
+
+    // Find the thought by ID
+    const thought = await Thought.findByIdAndUpdate(
+      id,
+      { thoughtText }, // Update the thoughtText property
+      { new: true } // Return the updated thought
+    );
+
+    if (!thought) {
+      return res.status(404).json({ message: 'Thought not found' });
+    }
+
+    res.json(thought);
+  } catch (err) {
+    res.status(400).json(err);
+   }
+  },
 };
+
+
+
 
 module.exports = thoughtController;
