@@ -5,6 +5,7 @@ const Thought = require('../models/Thought');
 const User = require('../models/User');
 
 
+
 const thoughtController = {
 
 //// POST REQUEST TO CREATE THOUGHT-----------------------------------
@@ -143,8 +144,6 @@ updateThoughtById: async (req, res) => {
   deleteReactionById: async (req, res) => {
     try {
       const { thoughtId, reactionId } = req.params;
-  
-      await Reaction.findByIdAndDelete(reactionId);
   
       const updatedThought = await Thought.findByIdAndUpdate(
         thoughtId,

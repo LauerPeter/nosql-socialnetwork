@@ -77,7 +77,55 @@ deleteUserById: async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
     }
+  },
+
+  ////POST to add a friend to a user
+  addFriendById: async (req, res) => {
+    try {
+      const { userId, friendId } = req.params;
+  
+      const user = await User.findById(userId);
+      const friend = await User.findById(friendId);
+  
+      if (!user || !friend) {
+        return res.status(404).json({ message: 'User or friend not found' });
+      }
+  
+      user.friends.push(friendId);
+      await user.save();
+  
+      res.json(user);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  /////DELETE a friend from user list
+  deleteFriendById: async (req, res) => {
+    try {
+      const { userId, friendId } = req.params;
+  
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const friendIndex = user.friends.indexOf(friendId);
+  
+      if (friendIndex === -1) {
+        return res.status(404).json({ message: 'Friend not found in user\'s friends list' });
+      }
+  
+      user.friends.splice(friendIndex, 1);
+      await user.save();
+  
+      res.json(user);
+    } catch (err) {
+      res.status(400).json(err);
+    }
   }
 };
+
 
 module.exports = userController;
