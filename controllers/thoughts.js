@@ -94,6 +94,30 @@ updateThoughtById: async (req, res) => {
     res.status(400).json(err);
    }
   },
+  createReaction: async (req, res) => {
+    try {
+      const { reactionBody, username } = req.body;
+      const { thoughtId } = req.params;
+
+      console.log("Creating reaction...");
+      console.log("Reaction Body:", reactionBody);
+      console.log("Username:", username);
+      console.log("Thought ID:", thoughtId);
+
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        { $push: { reactions: { reactionBody, username } } }, // Add the reaction to the reactions array
+        { new: true }
+      );
+
+      console.log("Updated Thought:", updatedThought);
+
+      res.json(updatedThought);
+    } catch (err) {
+      console.error("Error creating reaction:", err);
+      res.status(400).json(err);
+    }
+  },
 };
 
 

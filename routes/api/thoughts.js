@@ -22,4 +22,11 @@ router.put('/:id', thoughtController.updateThoughtById);
 // //--Delete a thought by ID
 // router.delete('/:id', thoughtController.deleteThought);
 
+//--Create a reaction to a thought
+router.post('/:thoughtId/reactions', thoughtController.createReaction);
+
+//--Delete a reaction by reactionId
+// router.delete('/:thoughtId/reactions/:reactionId', reactionController.deleteReaction);
+
+
 module.exports = router;

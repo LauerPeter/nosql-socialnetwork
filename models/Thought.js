@@ -11,11 +11,32 @@ const thoughtSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  userId: {  // Changed the field name to userId for better user experience --- was getting error with just user
-    type: mongoose.Schema.Types.ObjectId,  
-    ref: 'User',  
-    required: true,  
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
+  reactions: [
+    {
+      reactionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: new mongoose.Types.ObjectId(),
+      },
+      reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+      },
+      username: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 thoughtSchema.virtual('reactionCount').get(function () {
