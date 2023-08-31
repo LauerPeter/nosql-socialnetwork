@@ -20,7 +20,7 @@ router.post('/', thoughtController.createThought);
 router.put('/:id', thoughtController.updateThoughtById);
 
 // //--Delete a thought by ID
-// router.delete('/:id', thoughtController.deleteThought);
+router.delete('/:id', thoughtController.deleteThoughtById);
 
 //--Create a reaction to a thought
 router.post('/:thoughtId/reactions', thoughtController.createReaction);

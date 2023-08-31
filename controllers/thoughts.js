@@ -94,6 +94,27 @@ updateThoughtById: async (req, res) => {
     res.status(400).json(err);
    }
   },
+
+//////// DELETE REQUEST FOR THOUGHT BY ITS ID
+  deleteThoughtById: async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      const deletedThought = await Thought.findByIdAndDelete(id);
+  
+      if (!deletedThought) {
+        return res.status(404).json({ message: 'Thought not found' });
+      }
+
+      await User.findByIdAndUpdate(deletedThought.userId, { $pull: { thoughts: id } });
+  
+      res.json({ message: 'Thought deleted successfully' });
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  },
+
+  ////// POST REQUEST FOR CREATING A REACTION TO A THOUGHT
   createReaction: async (req, res) => {
     try {
       const { reactionBody, username } = req.body;
@@ -118,6 +139,24 @@ updateThoughtById: async (req, res) => {
       res.status(400).json(err);
     }
   },
+  //////DELETE REQUEST FOR A REACTION TO A THOUGHT
+  deleteReactionById: async (req, res) => {
+    try {
+      const { thoughtId, reactionId } = req.params;
+  
+      await Reaction.findByIdAndDelete(reactionId);
+  
+      const updatedThought = await Thought.findByIdAndUpdate(
+        thoughtId,
+        { $pull: { reactions: { reactionId } } },
+        { new: true }
+      );
+  
+      res.json(updatedThought);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  }
 };
 
 
